@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sakai-ingress
+  labels:
+    environment: {{ .Values.metadata.labels.environment }}
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      add_header  X-Frame-Options "SAMEORIGIN";
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ .Values.metadata.ingress.PROXY_BODY_SIZE }}
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          {{- if index .Values "sakai" "enabled" }}
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sakai
+                port:
+                  number: 8080
+          {{- end }}
+

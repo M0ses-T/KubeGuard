@@ -1,0 +1,10 @@
+apiVersion: v2
+name: sakai
+description: A Helm chart for sakai LMS
+type: application
+version: "20.5"
+
+dependencies:
+  - name: sakai
+    version: "20.5"
+    condition: sakai.enabled
