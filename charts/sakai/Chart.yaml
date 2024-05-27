@@ -1,6 +1,0 @@
-apiVersion: v2
-name: sakai
-description: A Helm chart for Sakai
-type: application
-version: "20.5"
-
